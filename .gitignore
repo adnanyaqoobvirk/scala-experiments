@@ -1,2 +1,7 @@
 *.class
 *.log
+/scala-experiments.iml
+/.idea/**
+/learning.sc
+/target/**
+/project/target/**
