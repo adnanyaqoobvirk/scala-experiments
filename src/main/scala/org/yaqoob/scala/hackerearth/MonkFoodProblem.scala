@@ -12,11 +12,15 @@ import scala.io.StdIn
 //For each Type-1 Query, output the price that customer has to pay i.e. cost of the package given to the customer in a new line. If the pile is empty, print "No Food" (without the quotes).
 
 private object MonkFoodStack {
-  private val stack = new mutable.ArrayBuffer[Int]
+  private val stack = new mutable.ArrayBuffer[String]
 
-  def pop: Int = stack.remove(stack.size - 1)
+  def pop: String =
+    if (stack.isEmpty)
+      "No Food"
+    else
+      stack.remove(stack.size - 1)
 
-  def push(elem: Int): Unit = stack.append(elem)
+  def push(elem: String): Unit = stack.append(elem)
 
   def length: Int = stack.size
 
@@ -26,17 +30,14 @@ private object MonkFoodStack {
 object MonkFoodProblem extends App {
   val numQueries = StdIn.readInt
 
-  (0 until numQueries).foreach {
+  (1 to numQueries).foreach {
     _ =>
       val query = StdIn.readLine.split(" ")
       query.length match {
         case 2 =>
-          MonkFoodStack.push(query(1).toInt)
+          MonkFoodStack.push(query(1))
         case _ =>
-          if (MonkFoodStack.isEmpty)
-            println("No Food")
-          else
-            println(MonkFoodStack.pop)
+          println(MonkFoodStack.pop)
       }
   }
 }
