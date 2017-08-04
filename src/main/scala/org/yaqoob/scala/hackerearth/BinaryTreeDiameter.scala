@@ -2,11 +2,11 @@ package org.yaqoob.scala.hackerearth
 
 import scala.io.StdIn
 
-class BTree(var value: Any, var left: BTree, var right: BTree)
+class BTree(var value: Any = null, var left: BTree = null, var right: BTree = null)
 
 object BinaryTreeDiameter extends App {
   val Array(numNodes, rootValue) = StdIn.readLine.split(" ").map(_.toInt)
-  val rootNode = new BTree(rootValue, null, null)
+  val rootNode = new BTree(rootValue)
 
   def addNode(rootNode: BTree, nodeValue: Any, nodePath: String): Unit = {
     var node = rootNode
@@ -15,11 +15,11 @@ object BinaryTreeDiameter extends App {
         nodeType.toUpper match {
           case 'L' =>
             if (node.left == null)
-              node.left = new BTree(null, null, null)
+              node.left = new BTree
             node = node.left
           case 'R' =>
             if (node.right == null)
-              node.right = new BTree(null, null, null)
+              node.right = new BTree
             node = node.right
         }
     }
@@ -32,7 +32,7 @@ object BinaryTreeDiameter extends App {
       val leftDepth = findDepth(rootNode.left)
       val rightDepth = findDepth(rootNode.right)
 
-      Math.max(leftDepth, rightDepth) + 1
+      Vector(leftDepth, rightDepth).max + 1
   }
 
   def findDiameter(rootNode: BTree): Int = rootNode match {
@@ -44,7 +44,7 @@ object BinaryTreeDiameter extends App {
       val leftDiameter = findDiameter(rootNode.left)
       val rightDiameter = findDiameter(rootNode.right)
 
-      List(leftDepth + rightDepth + 1, leftDiameter, rightDiameter).max
+      Vector(leftDepth + rightDepth + 1, leftDiameter, rightDiameter).max
   }
 
   (1 until numNodes).foreach {
