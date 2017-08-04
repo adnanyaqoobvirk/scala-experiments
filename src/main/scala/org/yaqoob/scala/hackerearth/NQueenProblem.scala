@@ -37,8 +37,7 @@ object NQueenProblem extends App {
   def placeQueens(board: ArrayBuffer[ArrayBuffer[Int]], N: Int): Option[ArrayBuffer[ArrayBuffer[Int]]] = N match {
     case 0 => Option(board)
     case _ =>
-      for (i <- board.indices)
-        for (j <- board.indices)
+      for (i <- board.indices; j <- board.indices)
           if (!isAttacked(i, j, board)) {
             board(i).update(j, 1)
             val resultBoard = placeQueens(board, N - 1)
@@ -50,7 +49,7 @@ object NQueenProblem extends App {
       None
   }
 
-  for (i <- 0 until N) board += ArrayBuffer.fill(N)(0)
+  for (_ <- 1 to N) board += ArrayBuffer.fill(N)(0)
 
   placeQueens(board, N) match {
     case None => println("NO")
