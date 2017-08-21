@@ -18,7 +18,7 @@ case class BinarySearchTree(var value: Int, var leftNode: BinarySearchTree = nul
 object BinarySearchTree extends App {
   val listSize = StdIn.readInt
   val intList = StdIn.readLine.split(" ").map(_.toInt).toList
-  val root = intList.drop(1).foldLeft(new BinarySearchTree(intList.head))((root, value) => insert(root, value))
+  val root = intList.drop(1).foldLeft(new BinarySearchTree(intList.head))(insert)
 
   def insert(root: BinarySearchTree, value: Int): BinarySearchTree = {
     if (value > root.value) {
